@@ -1,0 +1,350 @@
+<!DOCTYPE html>  
+<html lang="my">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>ROMEO GAME SHORT</title>  
+<style>  
+:root {  
+  --primary: #00f2fe;  
+  --secondary: #4facfe;  
+  --bg: #0a0e14;  
+  --card: #161b22;  
+  --item: #21262d;  
+  --text: #ffffff;  
+  --warning: #ffcc00;  
+  --success: #00ff88;  
+  --danger: #ff4d4d;
+}  
+  
+body {  
+  margin:0; font-family: 'Segoe UI', Arial, sans-serif;  
+  background: var(--bg); color: var(--text);  
+}  
+
+.marquee-container {
+  background: rgba(255, 77, 77, 0.15);
+  color: var(--danger);
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: bold;
+  overflow: hidden;
+  border-bottom: 1px solid var(--danger);
+}
+
+header {  
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);  
+  text-align: center; padding: 18px; font-size: 16px;  
+  color: var(--primary); font-weight: bold; position: sticky; top: 0; z-index: 10;  
+}  
+  
+.shop-status { text-align: center; font-size: 11px; color: var(--warning); background: rgba(255, 204, 0, 0.05); padding: 5px; }  
+  
+.tabs { display: flex; justify-content: center; gap: 10px; padding: 15px 15px 5px 15px; }  
+.tab-btn {  
+  flex: 1; padding: 12px; background: var(--item); border: 1px solid #30363d;  
+  color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; font-size: 14px; transition: 0.3s;
+}  
+.tab-btn.active { background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; }  
+  
+section { padding: 15px; }  
+.server-content { display: none; }  
+.server-content.active { display: block; }  
+  
+.card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }  
+.note-box { background: rgba(0, 242, 254, 0.1); border: 1px solid var(--primary); color: var(--primary); padding: 10px; border-radius: 10px; font-size: 11px; margin-bottom: 15px; }  
+h2 { color: var(--primary); margin-top: 0; font-size: 1rem; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; }  
+  
+.diamond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }  
+
+.diamond-item { 
+  background: var(--item); border-radius: 12px; padding: 12px 5px; 
+  text-align: center; font-size: 10px; cursor: pointer; border: 1px solid transparent; 
+  transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 5px;
+} 
+.diamond-item img { width: 45px; height: 45px; object-fit: contain; }
+.diamond-item:active { transform: scale(0.95); background: #30363d; }
+.price { font-weight: bold; color: var(--primary); font-size: 10px; }  
+
+.copy-badge {
+  background: var(--primary); color: #000; padding: 2px 6px;
+  border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 5px; font-weight: bold;
+}
+
+.admin-box { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.admin-link {
+  background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
+  text-decoration: none; color: #fff; font-size: 13px; text-align: center;
+  border: 1px solid #30363d; transition: 0.3s;
+}
+  
+.toast {  
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);  
+  background: var(--success); color: #000; padding: 12px 25px;  
+  border-radius: 50px; font-weight: bold; font-size: 13px; display: none; z-index: 10000;  
+}  
+  
+.popup {  
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9);  
+  display: none; justify-content: center; align-items: center; z-index: 999; backdrop-filter: blur(8px);  
+}  
+.popup-box { background: #1c2128; width: 90%; max-width: 400px; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); max-height: 90vh; overflow-y: auto; }  
+.close { text-align: right; font-size: 20px; color: #ff6b6b; cursor: pointer; }  
+  
+input, textarea, select { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }  
+.btn { margin-top: 15px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; border: none; }  
+
+#preview { width: 70px; height: 70px; object-fit: cover; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--primary); }  
+.pay-box { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; margin-top: 10px; font-size: 12px; border: 1px dashed var(--primary); line-height: 1.8; }  
+
+/* History Section Styles */
+.history-item { background: #21262d; padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 3px solid var(--primary); font-size: 12px; }  
+.history-btn { background: #30363d; color: #fff; padding: 12px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid #444; margin-top: 10px; font-size: 13px; }
+.history-container { display: none; margin-top: 15px; background: #161b22; padding: 15px; border-radius: 20px; border: 1px solid #30363d; }
+.clear-btn { color: #ff4d4d; font-size: 11px; text-decoration: underline; cursor: pointer; text-align: right; display: block; margin-top: 10px; }
+
+footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }  
+</style>  
+</head>  
+<body>  
+
+<div id="main-content">  
+  <header>🎮 ROMEO GAME SHORT 💎</header>  
+  
+  <div class="marquee-container">
+    <marquee scrollamount="5">⚠️ ပြေစာအတုဖြင့် ဝယ်ယူပါက Account အား Ban ခံရနိုင်ပါသည်။ Owner တင်တဲ့နေရာမှာ VPN ခံပေးဖို့မေတ္တာရပ်ခံအပ်ပါသည်။</marquee>
+  </div>
+
+  <div class="shop-status">⏰ ဖွင့်ချိန်: နံနက် 9:00 AM မှ ည 12:00 PM အထိ</div>    
+  
+  <div class="tabs">  
+    <div class="tab-btn active" onclick="switchServer('normal', this)">ရိုးရိုး Server</div>  
+    <div class="tab-btn" onclick="switchServer('malaysia', this)">🇲🇾 Malaysia</div>  
+  </div>    
+
+  <section>  
+    <div id="normal" class="server-content active">  
+      <div class="card">  
+        <h2>🎟 Passes (ရိုးရိုး)</h2>  
+        <div class="diamond-grid">  
+          <div class="diamond-item" onclick="openPopup('Weekly Pass - 6200 Ks')"><img src="https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png">Weekly Pass<div class="price">6200 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Super Diamond Pass - 4000 Ks')"><img src="https://i.ibb.co/hRKq3C9d/IMG-20251215-145339-565.png">Super Pass<div class="price">4000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Twilight Pass - 34000 Ks')"><img src="https://i.ibb.co/ymCS87tn/IMG-20251215-145341-949.png">Twilight Pass <div class="price">34000 Ks</div></div>  
+        </div>  
+      </div>  
+
+      <div class="card">  
+        <h2>🎁 2X Diamonds (ရိုးရိုး)</h2>  
+        <div class="note-box">⚠️ ပထမတစ်ခါထည့်ရင် စိန်နှစ်စရပါမယ်။ထည့်ထားပြီးရင်ထက်ထည့်လို့မရပါ။စိန်တစ်ခုကိုတစ်ခါထည့်လို့ရပါမယ်။</div>  
+        <div class="diamond-grid">  
+          <div class="diamond-item" onclick="openPopup('50+50 Dia - 3500 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">50+50<div class="price">3500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('150+150 Dia - 11000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">150+150<div class="price">11000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('250+250 Dia - 17000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">250+250<div class="price">17000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('500+500 Dia - 35000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">500+500<div class="price">35000 Ks</div></div>  
+        </div>  
+      </div>  
+
+      <div class="card">  
+        <h2>💎 MLBB Normal (Direct)</h2>  
+        <div class="diamond-grid">  
+          <div class="diamond-item" onclick="openPopup('11 Dia - 1000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">11 Dia<div class="price">1000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('22 Dia - 1900 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">22 Dia<div class="price">1900 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('33 Dia - 2900 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">33 Dia<div class="price">2900 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('44 Dia - 3800 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">44 Dia<div class="price">3800 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('56 Dia - 4500 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">56 Dia<div class="price">4500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('86 Dia - 5500 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">86 Dia<div class="price">5500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('172 Dia - 10000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">172 Dia<div class="price">10000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('257 Dia - 15000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">257 Dia<div class="price">15000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('343 Dia - 20000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">343 Dia<div class="price">20000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('429 Dia - 24500 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">429 Dia<div class="price">24500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('515 Dia - 32000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">515 Dia<div class="price">32000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('600 Dia - 35000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">600 Dia<div class="price">35000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('706 Dia - 40000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">706 Dia<div class="price">40000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('963 Dia - 53000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">963 Dia<div class="price">53000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('1049 Dia - 61000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">1049 Dia<div class="price">61000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('1135 Dia - 64000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">1135 Dia<div class="price">64000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('2195 Dia - 117000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">2195 Dia<div class="price">117000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('3688 Dia - 200000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">3688 Dia<div class="price">200000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('5532 Dia - 300000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">5532 Dia<div class="price">300000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('9288 Dia - 495000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">9288 Dia<div class="price">495000 Ks</div></div>  
+        </div>  
+      </div>  
+    </div>  
+
+    <div id="malaysia" class="server-content">  
+      <div class="card">  
+        <h2>🇲🇾 MLBB Malaysia Server</h2>  
+        <div class="diamond-grid">  
+          <div class="diamond-item" onclick="openPopup('Weekly Pass (MY) - 9000 Ks')"><img src="https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png">Weekly<div class="price">9000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('Dia 14 (MY) - 1200 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">14 Dia<div class="price">1200 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('74 Dia (MY) - 5000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">74 Dia<div class="price">5000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('140 Dia (MY) - 9500 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">140 Dia<div class="price">9500 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('284 Dia (MY) - 19000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">284 Dia<div class="price">19000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('429 Dia (MY) - 28000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">429 Dia<div class="price">28000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('2976 Dia (MY) - 190000 Ks')"><img src="https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png">2976 Dia<div class="price">190000 Ks</div></div>  
+        </div>  
+      </div>  
+
+      <div class="card">  
+        <h2>🎁 2X Diamonds (Malaysia)</h2>  
+        <div class="note-box">⚠️ ပထမတစ်ခါထည့်ရင် စိန်နှစ်စရပါမယ်။ထည့်ထားပြီးရင်ထက်ထည့်လို့မရပါ။စိန်တစ်ခုကိုတစ်ခါထည့်လို့ရပါမယ်။</div>
+        <div class="diamond-grid">  
+          <div class="diamond-item" onclick="openPopup('50+50 Dia (MY) - 4000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">50+50<div class="price">4000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('150+150 Dia (MY) - 13000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">150+150<div class="price">13000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('250+250 Dia (MY) - 20000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">250+250<div class="price">20000 Ks</div></div>  
+          <div class="diamond-item" onclick="openPopup('500+500 Dia (MY) - 40000 Ks')"><img src="https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png">500+500<div class="price">40000 Ks</div></div>  
+        </div>  
+      </div>  
+    </div>  
+
+    <div class="card">
+      <h2>📞Telegram ဖြင့်တိုက်ရိုက်ဝယ်ယူရန်</h2>
+      <div class="admin-box">
+          <a href="tg://resolve?domain=Mgflash_2038" class="admin-link">👤 Owner: @Mgflash_2038</a>
+      </div>
+    </div>
+
+    <div class="history-btn" onclick="toggleHistory()">📜 ဝယ်ယူမှုမှတ်တမ်းကြည့်ရန်</div>
+    
+    <div id="history-container" class="history-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0; font-size:14px;">Recent Orders</h2>
+        <span class="clear-btn" onclick="clearHistory()">မှတ်တမ်းဖျက်ပါ</span>
+      </div>
+      <div id="history-list"></div>
+    </div>
+
+  </section>  
+  <footer>© 2026 PMK Diamond Shop</footer>  
+</div>  
+
+<div id="toast" class="toast">✅ Order တင်ခြင်း အောင်မြင်ပါသည်။</div>  
+
+<div class="popup" id="popup">  
+  <div class="popup-box">  
+    <div class="close" onclick="closePopup()">✕</div>  
+    <h2 id="diaTitle" style="text-align:center; border:none; margin-bottom:5px;"></h2>  
+    <input id="userName" type="text" placeholder="Telegram Name">
+    <div style="display:flex; gap:10px;">  
+      <input id="gid" type="number" placeholder="Game ID">  
+      <input id="sid" type="number" placeholder="Server ID">  
+    </div>  
+    <select id="method">  
+      <option value="">Payment Method ရွေးပါ</option>  
+      <option>KBZ Pay</option>  
+      <option>Wave Pay</option>  
+    </select>  
+    <div class="pay-box">  
+      📱 <b>Wave:</b> 09789457150 <span class="copy-badge" onclick="copyNum('09789457150')">Copy</span> (Nyein Ei Phyo)<br>  
+      📱 <b>Kpay:</b> 09985496310 <span class="copy-badge" onclick="copyNum('09985496310')">Copy</span> (U Win Zaw Tun)  
+    </div>  
+    <input type="file" id="img" accept="image/*">  
+    <center><img id="preview"></center>  
+    <textarea id="pay" placeholder="ပိုက်ဆံဘယ်လောက်လွှဲထားလဲ?"></textarea>  
+    <button class="btn" id="submit-btn" onclick="sendOrder()">📩 Confirm Order</button>  
+  </div>  
+</div>  
+
+<script>  
+const BOT_TOKEN = "8103883017:AAFVj-m7UtA20HpjfSZf_Euy0fSW8rHU-U8";  
+const CHAT_ID = "7090654595";  
+
+function copyNum(text) {
+  navigator.clipboard.writeText(text);
+  alert("Copied: " + text);
+}
+
+let selectedDiamond = "";  
+let currentServer = "Normal Server";  
+
+function switchServer(id, btn) {  
+  document.querySelectorAll('.server-content').forEach(c => c.classList.remove('active'));  
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));  
+  document.getElementById(id).classList.add('active');  
+  btn.classList.add('active');  
+  currentServer = id === 'normal' ? "Normal Server" : "Malaysia Server";  
+}  
+
+function openPopup(d){ 
+  selectedDiamond = d; 
+  document.getElementById('diaTitle').innerText = d; 
+  document.getElementById('popup').style.display = "flex"; 
+}  
+
+function closePopup(){ document.getElementById('popup').style.display = "none"; }  
+
+document.getElementById('img').onchange = (e) => {  
+  const p = document.getElementById('preview');  
+  if(e.target.files[0]) {
+    p.src = URL.createObjectURL(e.target.files[0]); p.style.display = "block";  
+  }
+};  
+
+function toggleHistory() {
+  const container = document.getElementById('history-container');
+  if(container.style.display === "block") {
+    container.style.display = "none";
+  } else {
+    container.style.display = "block";
+    loadHistory();
+  }
+}
+
+async function sendOrder(){  
+  const buyerName = document.getElementById('userName').value.trim();
+  const gid = document.getElementById('gid').value;  
+  const sid = document.getElementById('sid').value;  
+  const method = document.getElementById('method').value;  
+  const payAmt = document.getElementById('pay').value;
+  const imgFile = document.getElementById('img').files[0];  
+  const btn = document.getElementById('submit-btn');
+
+  if(!buyerName || !gid || !sid || !method || !imgFile) return alert("အချက်အလက်စုံအောင်ဖြည့်ပါ");  
+
+  btn.disabled = true;
+  btn.innerText = "⏳ Processing...";
+
+  const orderTime = new Date().toLocaleString();
+
+  const formData = new FormData();  
+  formData.append("chat_id", CHAT_ID);  
+  formData.append("caption", `🔔 **NEW ORDER** 🔔\n👤 Buyer: ${buyerName}\n🌐 Server: ${currentServer}\n💎 Item: ${selectedDiamond}\n🎮 ID: ${gid} (${sid})\n💳 Method: ${method}\n💰 Amount: ${payAmt}\n⏰ Time: ${orderTime}`);  
+  formData.append("photo", imgFile);  
+  
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method:"POST", body: formData });  
+    if(res.ok) {  
+      saveOrder(selectedDiamond, gid, sid, orderTime); 
+      closePopup();  
+      document.getElementById('toast').style.display = "block"; 
+      setTimeout(()=> document.getElementById('toast').style.display="none", 3000);  
+    } else { alert("Error!"); }
+  } catch (e) { alert("Error!"); }
+  btn.disabled = false; btn.innerText = "📩 Confirm Order";
+}  
+
+function saveOrder(item, gid, sid, date) {  
+  let h = JSON.parse(localStorage.getItem('orders')) || [];  
+  h.push({ item, gid, sid, date: date });  
+  localStorage.setItem('orders', JSON.stringify(h)); 
+}  
+
+function loadHistory() {  
+  const list = document.getElementById('history-list');  
+  let h = JSON.parse(localStorage.getItem('orders')) || [];  
+  if(h.length === 0) {
+    list.innerHTML = "<p style='font-size:12px; color:#666; text-align:center;'>မှတ်တမ်းမရှိသေးပါ။</p>";
+    return;
+  }
+  list.innerHTML = h.reverse().slice(0,10).map(o => `<div class="history-item"><b>${o.item}</b><br>ID: ${o.gid}(${o.sid})<br><small style="color:var(--primary)">${o.date}</small></div>`).join('');  
+}  
+
+function clearHistory() {
+  if(confirm("ဝယ်ယူမှုမှတ်တမ်းအားလုံးကို ဖျက်မှာ သေချာပါသလား?")) {
+    localStorage.removeItem('orders');
+    loadHistory();
+  }
+}
+</script>  
+</body>  
+</html>
