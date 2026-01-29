@@ -1,0 +1,212 @@
+<!DOCTYPE html>  
+<html lang="my">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Romeo GAME SHORT✨</title>  
+<style>  
+:root {  
+  --primary: #00f2fe; --secondary: #4facfe; --bg: #0a0e14; --card: #161b22; --item: #21262d; --text: #ffffff; --warning: #ffcc00; --danger: #ff4d4d;
+}  
+body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); }  
+.marquee-container { background: rgba(255, 77, 77, 0.15); color: var(--danger); padding: 8px 0; font-size: 11px; font-weight: bold; text-align: center; border-bottom: 1px solid var(--danger); }
+header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); text-align: center; padding: 18px; font-size: 16px; color: var(--primary); font-weight: bold; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #30363d; }  
+.top-nav { display: flex; gap: 10px; padding: 15px; }
+.nav-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--primary); background: rgba(0, 242, 254, 0.1); color: var(--primary); text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
+.page { display: none; padding: 15px; }
+.page.active { display: block; }
+.card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }  
+h2 { color: var(--primary); margin-top: 0; font-size: 0.85rem; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; }  
+.note-box { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--warning); color: var(--warning); padding: 8px; border-radius: 10px; font-size: 10px; margin-bottom: 12px; text-align: center; }
+.diamond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }  
+.diamond-item { background: var(--item); border-radius: 12px; padding: 10px 5px; text-align: center; font-size: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; border: 1px solid transparent; transition: 0.2s; } 
+.diamond-item img { width: 37px; height: 37px; object-fit: contain; }
+.price { font-weight: bold; color: var(--primary); font-size: 10px; }  
+.back-btn { background: #334155; color: #fff; padding: 10px 15px; border-radius: 8px; cursor: pointer; border: none; margin-bottom: 15px; font-size: 12px; }
+
+.payment-row { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; border: 1px solid #333; position: relative; }
+.payment-row img { width: 30px !important; height: 30px !important; border-radius: 6px; }
+.pay-info { font-size: 12px; }
+.copy-badge { background: var(--primary); color: #000; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: bold; position: absolute; right: 10px; }
+
+.popup { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }  
+.popup-box { background: #1c2128; width: 90%; max-width: 400px; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); max-height: 90vh; overflow-y: auto; }  
+input, textarea, select { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #30363d; background: #0d1117; color: white; outline: none; box-sizing: border-box; }  
+.btn { margin-top: 15px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; width: 100%; }  
+#preview-img { width: 120px; height: auto; border-radius: 10px; margin: 15px auto; display: none; border: 1px solid var(--primary); }
+</style>  
+</head>  
+<body>  
+
+<header>🎮 Romeo GAME SHORT✨</header>  
+<div class="marquee-container"><marquee scrollamount="5">⚠️ ပြေစာအတုတင်ပါက Account Ban ခံရနိုင်ပါမည်။ MLBB Server အားလုံး ဝယ်ယူနိုင်ပါပြီ။လိုင်းမကောင်းပါက VPN ခံပေးပါ🙏။ Telegram Owner - @Mgflash_2038</marquee></div>
+
+<section id="page-main" class="page active">
+  <div class="top-nav">
+    <div class="nav-btn" onclick="showPage('page-payment')">💳 ငွေလွှဲမည်</div>
+    <div class="nav-btn" onclick="showPage('page-history')">📋 အော်ဒါများ</div>
+  </div>
+  <div class="card">
+    <h2>ဂိမ်းနှင့် Application များ</h2>
+    <div class="diamond-grid" id="app-list-main"></div>
+  </div>
+</section>
+
+<section id="page-mlbb-server" class="page">
+  <button class="back-btn" onclick="showPage('page-main')">⬅️ Back</button>
+  <div class="card">
+    <h2>MLBB Server ရွေးချယ်ပါ</h2>
+    <div class="diamond-grid">
+      <div class="diamond-item" onclick="showPage('page-ml-myanmar')"><img src="https://i.ibb.co/qF40r1CJ/IMG-20251215-145339-565.png"><span>Myanmar</span></div>
+      <div class="diamond-item" onclick="showPage('page-ml-malaysia')"><img src="https://i.ibb.co/S4TRQJQv/IMG-20251215-145341-949.png"><span>Malaysia</span></div>
+      <div class="diamond-item" onclick="showPage('page-ml-philippines')"><img src="https://i.ibb.co/Q34WWDdy/IMG-20251215-145341-949.png"><span>Philippines</span></div>
+      <div class="diamond-item" onclick="showPage('page-ml-singapore')"><img src="https://i.ibb.co/3Yjnx53s/IMG-20251215-145341-949.png"><span>Singapore</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="page-ml-myanmar" class="page">
+  <button class="back-btn" onclick="showPage('page-mlbb-server')">⬅️ Back</button>
+  <div class="card"><h2>🎟 Pass (MM)</h2><div class="diamond-grid" id="grid-my-pass"></div></div>
+  <div class="card"><h2>🎁 2 X Diamond (MM)</h2><div class="note-box">⚠️ ပထမတစ်ခါထည့်ရင် စိန်နှစ်စရပါမယ်။ထည့်ထားပြီးရင်ထက်ထည့်လို့မရပါ။စိန်တစ်ခုကိုတစ်ခါထည့်လို့ရပါမယ်။</div><div class="diamond-grid" id="grid-my-promo"></div></div>
+  <div class="card"><h2>💎 Other (MM)</h2><div class="diamond-grid" id="grid-my-direct"></div></div>
+</section>
+
+<section id="page-ml-malaysia" class="page">
+  <button class="back-btn" onclick="showPage('page-mlbb-server')">⬅️ Back</button>
+  <div class="card"><h2>🎟 Pass (MY)</h2><div class="diamond-grid" id="grid-mal-pass"></div></div>
+  <div class="card"><h2>🎁 2 X Diamond (MY)</h2><div class="diamond-grid" id="grid-mal-promo"></div></div>
+  <div class="card"><h2>💎 Other (MY)</h2><div class="diamond-grid" id="grid-mal-direct"></div></div>
+</section>
+
+<section id="page-ml-philippines" class="page">
+  <button class="back-btn" onclick="showPage('page-mlbb-server')">⬅️ Back</button>
+  <div class="card"><h2>🎟 Pass (PH)</h2><div class="diamond-grid" id="grid-ph-pass"></div></div>
+  <div class="card"><h2>🎁 2 X Diamond (PH)</h2><div class="diamond-grid" id="grid-ph-promo"></div></div>
+  <div class="card"><h2>💎 Other (PH)</h2><div class="diamond-grid" id="grid-ph-direct"></div></div>
+</section>
+
+<section id="page-ml-singapore" class="page">
+  <button class="back-btn" onclick="showPage('page-mlbb-server')">⬅️ Back</button>
+  <div class="card"><h2>🎟 Pass (SG)</h2><div class="diamond-grid" id="grid-sg-pass"></div></div>
+  <div class="card"><h2>🎁 2 X Diamond (SG)</h2><div class="diamond-grid" id="grid-sg-promo"></div></div>
+  <div class="card"><h2>💎 Others (SG)</h2><div class="diamond-grid" id="grid-sg-direct"></div></div>
+</section>
+
+<section id="page-payment" class="page">
+  <button class="back-btn" onclick="showPage('page-main')">⬅️ Back</button>
+  <div class="card">
+    <h2>💳 ငွေလွှဲရန်</h2>
+    <h2> SS ရိုက်ယူးထားဖို့မမေ့ပါနဲ့။</h2>
+    <div class="payment-row" onclick="copyNum('09985496310')"><img src="https://i.ibb.co/FfMXQW6/IMG-20251215-145341-949.png"><div class="pay-info"><b>Kpay</b><br>09985496310</div><span class="copy-badge">Copy</span></div>
+    <div class="payment-row" onclick="copyNum('09789457150')"><img src="https://i.ibb.co/kgq3fdTf/IMG-20251215-145341-949.png"><div class="pay-info"><b>Wave Pay</b><br>09789457150</div><span class="copy-badge">Copy</span></div>
+  </div>
+</section>
+
+<section id="page-history" class="page"><button class="back-btn" onclick="showPage('page-main')">⬅️ Back</button><div class="card"><h2>📋 ဝယ်ယူမှုမှတ်တမ်း</h2><div id="history-list"></div></div></section>
+
+<div class="popup" id="popup">  
+  <div class="popup-box">
+    <div style="text-align:right; font-size:24px; color:#ff4d4d; cursor:pointer;" onclick="closePopup()">✕</div>
+    <h2 id="diaTitle" style="text-align:center; border:none; color:var(--primary);"></h2>
+    <input id="userName" type="text" placeholder="@Telegram Name">
+    <div style="display:flex; gap:10px;"><input id="gid" type="number" placeholder="Game ID"><input id="sid" type="number" placeholder="Server ID"></div>
+    <select id="method"><option value="">Payment Method</option><option>KBZ Pay</option><option>Wave Pay</option></select>
+    <input type="file" id="img" accept="image/*" onchange="previewImg(event)">
+    <center><img id="preview-img"></center>
+    <textarea id="payNote" placeholder="မှတ်ချက် (Optional)"></textarea>
+    <button class="btn" id="submit-btn" onclick="sendOrder()">📩 Confirm Order</button>
+  </div>  
+</div>  
+
+<script>  
+const BOT_TOKEN = "8103883017:AAFVj-m7UtA20HpjfSZf_Euy0fSW8rHU-U8";  
+const CHAT_ID = "7090654595";  
+let selectedDiamond = "";
+
+const apps = [
+  {n:'MLBB', i:'https://i.ibb.co/qF40r1CJ/IMG-20251215-145339-565.png', p:'page-mlbb-server'},
+  {n:'PUBG', i:'https://www.pubgmobile.com/common/images/icon_logo.jpg', p:'alert'},
+  {n:'HOK', i:'https://i.ibb.co/XZHH0F8M/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Magic Chess', i:'https://i.ibb.co/cWf2r5d/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Free Fire', i:'https://i.ibb.co/8DgwLzF4/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Winds Met', i:'https://i.ibb.co/PG2NBLy2/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Heartopia', i:'https://i.ibb.co/twrYTyzk/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Blood Strike', i:'https://i.ibb.co/7xHHwtJw/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Delta Force', i:'https://i.ibb.co/5hjhbJ13/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Minecraft', i:'https://i.ibb.co/0Vm0FVM0/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Roblox', i:'https://i.ibb.co/xq0CXJpV/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Telegram', i:'https://i.ibb.co/1GVRvnSr/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'AlightMotion', i:'https://i.ibb.co/SXXC9y9V/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'CapCut', i:'https://i.ibb.co/3YkCs1GS/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Jump VPN', i:'https://i.ibb.co/rKKXX5WM/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Wink', i:'https://i.ibb.co/hJZNRxHY/IMG-20251215-145341-949.png', p:'alert'},
+  {n:'Smile One', i:'https://i.ibb.co/BKvCb9Yh/IMG-20251215-145341-949.png', p:'alert'}
+];
+
+// Data Setup [Myanmar, Price, ImageLink]
+const mmData = {
+  pass: [['Weekly Pass','6200','https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png'],['Twilight Pass','34000','https://i.ibb.co/dJVkbqfj/IMG-20251215-145341-949.png'],['Super Pass','4000','https://i.ibb.co/hRKq3C9d/IMG-20251215-144936-249.png'],['အပတ်စဉ် Epic','4000','https://i.ibb.co/MxsBWPYj/IMG-20251215-144936-249.png'],['လစဉ် Epic','16500','https://i.ibb.co/MxsBWPYj/IMG-20251215-144936-249.png']],
+  promo: [['50+50 Diamond','3500','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['150+150 Diamond','1100','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['250+250 Diamond','17000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['500+500 Diamond','34000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png']],
+  direct: [['11 Diamond','1000','https://i.ibb.co/MDZqgNSW/IMG-20251215-145344-325.png'],['22 Diamond','1900','https://i.ibb.co/MDZqgNSW/IMG-20251215-145344-325.png'],['33 Diamond','3000','https://i.ibb.co/MDZqgNSW/IMG-20251215-145344-325.png'],['44 Diamond','3700','https://i.ibb.co/MDZqgNSW/IMG-20251215-145344-325.png'],['56 Diamond','5000','https://i.ibb.co/MDZqgNSW/IMG-20251215-145344-325.png'],['86 Diamond','5300','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png'],['173 Diamond','10000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png'],['257 Diamond','15000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png'],['343 Diamond','20000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['429 Diamond','24500','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['515 Diamond','31000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['600 Diamond','36500','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['706 Diamond','42000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['963 Diamond','54000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['1049 Diamond','62000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['1135 Diamond','63500','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png'],['2195 Diamond','117000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png'],['3688 Diamond','200000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png'],['5532 Diamond','300000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png'],['9288 Diamond','500000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png']],
+};
+
+const malData = {
+  pass: [['Weekly Pass','9200','https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png']],
+  promo: [['50+50 Diamond','3200','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['150+150 Diamond','1100','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['250+250 Diamond','17000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['500+500 Diamond','34000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png']],
+  direct: [['14 Diamond','12500','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['74 Diamond','6000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['140 Diamond','12000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['284 Diamond','22000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['429 Diamond','6000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['2976 Diamond','200000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png']],
+};
+
+const phData = {
+  pass: [['Weekly Pass','6000','https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png']],
+  promo: [['50+50 Diamond','5000','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['150+150 Diamond','16000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['250+250 Diamond','25000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['500+500 Diamond','50000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png']],
+  direct: [['11 Diamonds','1000','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['56 Diamond','4500','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['112 Diamond','9000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['223 Diamond','15500','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['336 Diamond','22000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['570 Diamond','35000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png'],['1163 Diamond','70000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png']],
+};
+
+const sgData = {
+  pass: [['Weekly Pass','9000','https://i.ibb.co/TBtp7bt8/IMG-20251215-144936-249.png']],
+  promo: [['50+50 Diamond','5000','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['150+150 Diamond','14000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['250+250 Diamond','22000','https://i.ibb.co/TB1jgNXv/IMG-20251215-145344-325.png'],['500+500 Diamond','42000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png']],
+  direct: [['14 Diamond','1250','https://i.ibb.co/HD7G7Lf2/IMG-20251215-145344-325.png'],['42 Diamond','3500','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['70 Diamond','5500','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['140 Diamond','10000','https://i.ibb.co/FLz3cVMz/IMG-20251215-145344-325.png'],['355 Diamond','25000','https://i.ibb.co/DHKq8CKw/IMG-20251215-145344-325.png'],['429 Diamond','31000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['1084 Diamond','72000','https://i.ibb.co/fzwfWcbY/IMG-20251215-145344-325.png'],['1446 Diamond','110000','https://i.ibb.co/LdtcQx49/IMG-20251215-145344-325.png']],
+};
+
+function renderList(id, data, suffix="") {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = data.map(p => `
+    <div class="diamond-item" onclick="openPopup('${p[0]} - ${p[1]} Ks ${suffix}')">
+      <img src="${p[2]}">
+      <span>${p[0]}</span>
+      <div class="price">${p[1]} Ks</div>
+    </div>`).join('');
+}
+
+function renderAll() {
+  document.getElementById('app-list-main').innerHTML = apps.map(a => `<div class="diamond-item" onclick="${a.p=='alert'?'alert(\'Coming Soon\')':'showPage(\''+a.p+'\')'}"><img src="${a.i}"><span>${a.n}</span></div>`).join('');
+  renderList('grid-my-pass', mmData.pass); renderList('grid-my-promo', mmData.promo); renderList('grid-my-direct', mmData.direct);
+  renderList('grid-mal-pass', malData.pass, "(MY)"); renderList('grid-mal-promo', malData.promo, "(MY)"); renderList('grid-mal-direct', malData.direct, "(MY)");
+  renderList('grid-ph-pass', phData.pass, "(PH)"); renderList('grid-ph-promo', phData.promo, "(PH)"); renderList('grid-ph-direct', phData.direct, "(PH)");
+  renderList('grid-sg-pass', sgData.pass, "(SG)"); renderList('grid-sg-promo', sgData.promo, "(SG)"); renderList('grid-sg-direct', sgData.direct, "(SG)");
+}
+renderAll();
+
+function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function copyNum(t) { navigator.clipboard.writeText(t); alert("Copied: " + t); }
+function openPopup(d){ selectedDiamond = d; document.getElementById('diaTitle').innerText = d; document.getElementById('popup').style.display = "flex"; }
+function closePopup(){ document.getElementById('popup').style.display = "none"; }
+function previewImg(e){ const r=new FileReader(); r.onload=()=> { const i=document.getElementById('preview-img'); i.src=r.result; i.style.display="block"; }; r.readAsDataURL(e.target.files[0]); }
+
+async function sendOrder(){  
+  const name=document.getElementById('userName').value, gid=document.getElementById('gid').value, sid=document.getElementById('sid').value, method=document.getElementById('method').value, img=document.getElementById('img').files[0];
+  if(!name || !gid || !sid || !method || !img) return alert("အချက်အလက်အားလုံး ဖြည့်ပေးပါ");  
+  const btn=document.getElementById('submit-btn'); btn.disabled=true; btn.innerText="⏳ Sending...";
+  const fd=new FormData(); fd.append("chat_id", CHAT_ID); fd.append("photo", img);
+  fd.append("caption", `🔔 **ORDER**\n👤 Name: ${name}\n💎 Item: ${selectedDiamond}\n🎮 ID: ${gid}(${sid})\n💳 Pay: ${method}`);
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {method:"POST", body:fd});
+    if(res.ok){ alert("✅အောင်မြင်ပါသည်"); location.reload(); }
+  } catch(e){ alert("Error!"); btn.disabled=false; }
+}
+</script>  
+</body>  
+  </html>
+        
